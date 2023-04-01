@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Trip;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'amount_in_cents' => fake()->randomDigit(),
+            'currency' => 'COP',
+            'installments' => 2,
+            'reference' => fake()->randomElement,
+            'trip_id' => Trip::factory()->create()->id
         ];
     }
 }

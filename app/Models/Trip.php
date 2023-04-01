@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use MatanYadaev\EloquentSpatial\Objects\Point;
+use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 
 class Trip extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSpatial;
 
     /**
      * The attributes that are mass assignable.
@@ -24,4 +27,30 @@ class Trip extends Model
         'status',
         'total_cost'
     ];
+
+     /**
+     * The attributes that should be cast for serialization.
+     *
+     * @var string[]
+     */
+    protected $casts = [
+        'destination_location' => Point::class,
+        'origin_location' => Point::class
+    ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function driver(): BelongsTo
+    {
+        return $this->belongsTo(Driver::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function rider(): BelongsTo
+    {
+        return $this->belongsTo(Rider::class);
+    }
 }
