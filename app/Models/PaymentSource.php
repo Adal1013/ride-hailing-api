@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PaymentSource extends Model
 {
@@ -22,4 +23,12 @@ class PaymentSource extends Model
         'status',
         'token'
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function rider(): BelongsTo
+    {
+        return $this->belongsTo(Rider::class);
+    }
 }
