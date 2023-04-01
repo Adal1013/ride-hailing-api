@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Rider extends Model
 {
@@ -29,4 +30,20 @@ class Rider extends Model
     protected $hidden = [
         'password'
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function paymentSources(): HasMany
+    {
+        return $this->hasMany(PaymentSource::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function trips(): HasMany
+    {
+        return $this->hasMany(Trip::class);
+    }
 }
