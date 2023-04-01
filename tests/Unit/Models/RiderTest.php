@@ -9,7 +9,6 @@ use Tests\TestCase;
 class RiderTest extends TestCase
 {
     /**
-     * A basic unit test example.
      */
     public function test_has_many_payment_sources(): void
     {
@@ -18,7 +17,6 @@ class RiderTest extends TestCase
     }
 
     /**
-     * A basic unit test example.
      */
     public function test_has_many_trips(): void
     {
