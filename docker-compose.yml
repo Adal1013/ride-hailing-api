@@ -1,0 +1,56 @@
+version: "3.7"
+x-logging: &default-logging
+  options:
+    max-size: "100m"
+    max-file: "15"
+  driver: json-file
+
+services:
+  rh-db:
+    image: mariadb:10.5
+    container_name: ride-hailing-db
+    restart: unless-stopped
+    volumes:
+      - ride-hailing-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: 123
+    networks:
+      ride-hailing-private-net:
+        aliases:
+          - local.rh-db
+
+  rh-api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: ride-hailing-api
+    command: [ "sh", "-c", "php -S 0.0.0.0:8000 -t ./public" ]
+    tty: true
+    user: root
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    ports:
+      - "8001:8000"
+    deploy:
+      resources:
+        limits:
+          memory: 3250M
+        reservations:
+          memory: 500M
+    logging: *default-logging
+    networks:
+      ride-hailing-private-net:
+        aliases:
+          - local.rh-api
+    depends_on:
+      - rh-db
+
+networks:
+  ride-hailing-private-net:
+
+volumes:
+  ride-hailing-data:
