@@ -20,8 +20,17 @@ class Transaction extends Model
         'currency',
         'installments',
         'reference',
-        'trip_id'
+        'payment_source_id',
+        'trip_id',
     ];
+
+    /**
+     * @return belongsTo
+     */
+    public function paymentSource(): belongsTo
+    {
+        return $this->belongsTo(PaymentSource::class);
+    }
 
     /**
      * @return BelongsTo

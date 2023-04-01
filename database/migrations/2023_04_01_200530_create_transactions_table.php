@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('currency')->default('COP');
             $table->integer('installments')->nullable();
             $table->string('reference');
+            $table->unsignedBigInteger('payment_source_id');
             $table->unsignedBigInteger('trip_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('trip_id')->references('id')->on('trips');
+            $table->foreign('payment_source_id')->references('id')->on('payment_sources');
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PaymentSource;
 use App\Models\Trip;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,6 +23,7 @@ class TransactionFactory extends Factory
             'currency' => 'COP',
             'installments' => 2,
             'reference' => fake()->randomElement,
+            'payment_source_id' => PaymentSource::factory()->create()->id,
             'trip_id' => Trip::factory()->create()->id
         ];
     }
