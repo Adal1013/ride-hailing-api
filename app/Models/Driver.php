@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 
@@ -40,6 +41,14 @@ class Driver extends Model
      * @var string[]
      */
     protected $casts = [
-        'location' => Point::class
+        'current_location' => Point::class
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function trips(): HasMany
+    {
+        return $this->hasMany(Trip::class);
+    }
 }
