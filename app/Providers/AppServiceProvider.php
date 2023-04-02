@@ -6,6 +6,8 @@ use App\Http\Repositories\PaymentSources\Impl\PaymentSourceRepositoryImpl;
 use App\Http\Repositories\PaymentSources\PaymentSourceRepository;
 use App\Http\Repositories\Riders\Impl\RiderRepositoryImpl;
 use App\Http\Repositories\Riders\RiderRepository;
+use App\Http\Services\PaymentSources\Impl\PaymentSourceServiceImpl;
+use App\Http\Services\PaymentSources\PaymentSourceService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,9 +17,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(RiderRepository::class, RiderRepositoryImpl::class);
-        $this->app->bind(PaymentSourceRepository::class, PaymentSourceRepositoryImpl::class);
-        //
+      // Repositories
+      $this->app->bind(RiderRepository::class, RiderRepositoryImpl::class);
+      $this->app->bind(PaymentSourceRepository::class, PaymentSourceRepositoryImpl::class);
+
+      // Services
+      $this->app->bind(PaymentSourceService::class, PaymentSourceServiceImpl::class);
     }
 
     /**

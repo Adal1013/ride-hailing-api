@@ -12,6 +12,9 @@ class PaymentSourceRepositoryTest extends TestCase
 {
   protected PaymentSourceRepository $paymentSourceRepository;
 
+  /**
+   * @return void
+   */
   public function setUp(): void
   {
       parent::setUp();
@@ -43,7 +46,7 @@ class PaymentSourceRepositoryTest extends TestCase
   {
     $rider = Rider::factory()->create();
     $data = PaymentSourceData::from([
-      'rider_id' => $rider->id,
+      'riderId' => $rider->id,
       'type' => 'CARD'
     ]);
     $paymentSource = $this->paymentSourceRepository->create($data, $rider);

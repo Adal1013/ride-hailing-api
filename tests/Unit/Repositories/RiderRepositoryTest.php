@@ -8,8 +8,12 @@ use App\Http\Repositories\Riders\RiderRepository;
 
 class RiderRepositoryTest extends TestCase
 {
+
   protected RiderRepository $riderRepository;
 
+  /**
+   * @return void
+   */
   public function setUp(): void
   {
       parent::setUp();
