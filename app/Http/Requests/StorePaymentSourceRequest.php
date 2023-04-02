@@ -11,7 +11,7 @@ class StorePaymentSourceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StorePaymentSourceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+          'riderId' => 'required|int|exists:riders,id',
+          'type' => 'required|string|in:CARD,NEQUI',
         ];
     }
 }
