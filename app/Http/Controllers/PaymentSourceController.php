@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\DataTransferObjects\PaymentSources\PaymentSourceData;
 use App\Http\Requests\StorePaymentSourceRequest;
 use App\Http\Requests\UpdatePaymentSourceRequest;
+use App\Http\Resources\PaymentSources\PaymentSourceResource;
+use App\Http\Services\PaymentSources\PaymentSourceService;
 use App\Models\PaymentSource;
+use Illuminate\Support\Facades\Log;
 
 class PaymentSourceController extends Controller
 {
+  /**
+   * @param PaymentSourceService $paymentSourceRepository
+   */
+    public function __construct(protected PaymentSourceService $paymentSourceRepository)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -29,21 +31,18 @@ class PaymentSourceController extends Controller
      */
     public function store(StorePaymentSourceRequest $request)
     {
-        //
+      Log::info($request->route()->gatherMiddleware());
+      $paymentSourceData = PaymentSourceData::from($request);
+      $response = new PaymentSourceResource(
+        $this->paymentSourceRepository->createMethod($paymentSourceData)
+      );
+      return $response->response()->setStatusCode(201);
     }
 
     /**
      * Display the specified resource.
      */
     public function show(PaymentSource $paymentSource)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PaymentSource $paymentSource)
     {
         //
     }
