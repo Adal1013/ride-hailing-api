@@ -32,6 +32,22 @@ class Rider extends Model
     ];
 
     /**
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'full_name'
+    ];
+
+    /**
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
      * @return HasMany
      */
     public function paymentSources(): HasMany
