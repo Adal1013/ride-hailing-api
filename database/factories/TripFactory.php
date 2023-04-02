@@ -27,7 +27,7 @@ class TripFactory extends Factory
             'rider_id' => Rider::factory()->create()->id,
             'origin_location' => new Point(fake()->latitude, fake()->longitude),
             'status' => fake()->randomElement(['on trip', 'canceled', 'finished']),
-            'total_cost' => fake()->randomFloat(3, 2)
+            'total_cost' => fake()->randomFloat(2, 100, 999)
         ];
     }
 }
