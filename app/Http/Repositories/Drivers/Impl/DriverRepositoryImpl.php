@@ -25,6 +25,9 @@ class DriverRepositoryImpl implements DriverRepository
   {
     return Driver::query()
       ->orderByDistance('current_location', $location, 'desc')
+      ->whereDoesntHave('trips', function ($query) {
+          $query->where('status', 'on trip');
+      })
       ->first();
   }
 
