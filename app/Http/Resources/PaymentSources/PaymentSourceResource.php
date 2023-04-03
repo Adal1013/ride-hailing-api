@@ -15,13 +15,11 @@ class PaymentSourceResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-          "id" => $this->id,
-          "last_four_digits" => $this->last_four_digits,
-          "payment_method_type" => $this->payment_method_type,
           "rider_id" => $this->rider_id,
           "third_party_payment_source_id" => $this->third_party_payment_source_id,
-          "status" => $this->status,
-          "token" => $this->token
+          "last_four_digits" => $this->last_four_digits,
+          "payment_method_type" => $this->payment_method_type,
+          "status" => $this->status
         ];
     }
 }
