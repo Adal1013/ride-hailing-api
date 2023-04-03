@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePaymentSourceRequest;
 use App\Http\Resources\PaymentSources\PaymentSourceResource;
 use App\Http\Services\PaymentSources\PaymentSourceService;
 use App\Models\PaymentSource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
 class PaymentSourceController extends Controller
@@ -31,11 +32,16 @@ class PaymentSourceController extends Controller
      */
     public function store(StorePaymentSourceRequest $request)
     {
-      $paymentSourceData = PaymentSourceData::from($request);
-      $response = new PaymentSourceResource(
-        $this->paymentSourceRepository->createMethod($paymentSourceData)
-      );
-      return $response->response()->setStatusCode(201);
+      return $this->createPaymentSource($request);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function storeWithSpecificCard(StorePaymentSourceRequest $request)
+    {
+      $request->merge(['specificCard' => true]);
+      return $this->createPaymentSource($request);
     }
 
     /**
@@ -60,5 +66,13 @@ class PaymentSourceController extends Controller
     public function destroy(PaymentSource $paymentSource)
     {
         //
+    }
+
+    private function createPaymentSource(StorePaymentSourceRequest $request): JsonResponse
+    {
+      $response = new PaymentSourceResource(
+        $this->paymentSourceRepository->createMethod(PaymentSourceData::from($request))
+      );
+      return $response->response()->setStatusCode(201);
     }
 }

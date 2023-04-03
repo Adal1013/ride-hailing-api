@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function () {
   Route::group(['prefix' => 'payment-sources'], function () {
     Route::post('', [PaymentSourceController::class, 'store']);
+    Route::post('with-card', [PaymentSourceController::class, 'storeWithSpecificCard']);
   });
   Route::group(['prefix' => 'trips'], function () {
     Route::post('', [TripController::class, 'store']);
