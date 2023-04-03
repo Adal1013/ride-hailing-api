@@ -31,7 +31,6 @@ class PaymentSourceController extends Controller
      */
     public function store(StorePaymentSourceRequest $request)
     {
-      Log::info($request->route()->gatherMiddleware());
       $paymentSourceData = PaymentSourceData::from($request);
       $response = new PaymentSourceResource(
         $this->paymentSourceRepository->createMethod($paymentSourceData)

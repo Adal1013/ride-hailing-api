@@ -21,7 +21,7 @@ class PaymentSourceFactory extends Factory
             'last_four_digits' => fake()->randomDigit(4),
             'payment_method_type' => 'CARD',
             'rider_id' => Rider::factory()->create()->id,
-            'third_party_payment_source_id' => fake()->randomDigit(4),
+            'third_party_payment_source_id' => 51748,
             'status' => fake()->boolean,
             'token' => fake()->text(10)
         ];
