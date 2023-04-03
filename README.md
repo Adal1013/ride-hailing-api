@@ -1,66 +1,106 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Ride Hailing API
+Powered by Adal
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Build Status](https://cdn.iconscout.com/icon/premium/png-256-thumb/high-speed-taxi-2018575-1716264.png)
 
-## About Laravel
+Ride Hailing is a test API to manage a transportation system, allowing to generate drivers and passengers, perform activities such as starting a trip or ending a trip. It also uses a third party API to generate payment sources and simulated transactions.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Developed with Laravel version 10 and PHP version 8.1
+- Database used Mariadb version 10
+- PHPUnit for testing
+- Docker compose version 3.7
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Run project locally
 
-## Learning Laravel
+Remember that you must have docker and docker compose installed on your machine. Open the terminal of your console in the directory you want to have the project, in this example it will be the Downloads directory.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```sh
+cd Downloads
+git clone https://github.com/Adal1013/ride-hailing-api
+cd ride-hailing-api
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+If you wish, you can modify some features in the docker-compose.yml, ports, container names, etc. Just keep in mind that you must make those changes in the .env file. Now once this is done we create the containers and so on with the following command:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```sh
+docker-compose build
+```
 
-## Laravel Sponsors
+Once the containers and other components have been built we can lift them with the following command:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```sh
+docker-compose up
+```
 
-### Premium Partners
+If you prefer to run them in deamon mode (in the background), you must then execute the following command:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```sh
+docker-compose up -d
+```
 
-## Contributing
+Once the containers are built, we will make some additional configurations on them. First we will configure the databases, for this we will enter in interactive mode to the MariaDB container with the following command:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```sh
+docker exec -it ride-hailing-db /bin/bash
+```
 
-## Code of Conduct
+If I modify the name of the container it should be in the command the custom name that you put, you can also do it with the container id. Once inside the container we execute the following command:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```sh
+mysql -u root -p
+```
 
-## Security Vulnerabilities
+In this step we will be asked for our root password defined in the docker-compose.yml. Once the password is entered we will be able to interact with the MariaDB CLI, in it we will execute the following commands, with the first two we will create two databases, a main db and one for tests. With the last command we will verify that the databases have been created correctly.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```sh
+create database `ride-hailing`;
+create database `test-ride-hailing`;
+show databases;
+```
 
-## License
+With the 'exit' command we will first exit the CLI, executing it again will close the interactive container. Then we will configure the .env file to be able to run the project. First we will make a copy of the file .env.example in the same root of the project and we will modify the name placing it only .env as name. In linux this can be done with the following command:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```sh
+cp .env.example .env
+```
+
+As a next step you must add the following variable values to the .env
+
+| Variable | Valor                                                                                               |
+| ------ |-----------------------------------------------------------------------------------------------------|
+| TEST_TOKEN_CARD | If you wish to test with a previously tokenized card, you will need to add the token you obtained.  |
+| TEST_TOKEN_NEQUI | If you wish to test with a previously tokenized nequi account, you must add the token you obtained. |
+| URL | url for third party system                                                                          |
+| PUBLIC_KEY | Your public token is given to you once you have registered in the system.                           |
+| PRIVATE_KEY | Your private token is given to you once you have registered in the system.                          |
+
+Finally validate that the DB_HOST variable has as value the name of the database container service defined in the docker-compose.yml and also validate the value of DB_DATABASE, DB_PASSWORD that must be the same of the docker-compose and that the DB_USERNAME is root unless you have added a new user. 
+
+Once you are sure you have well configured the .env you can enter the container to finish the additional configurations, you must enter the container with the following command (remember that you can use the container id or another name that you have defined in the docker-compose.yml):
+
+```sh
+docker exec -it ride-hailing-api /bin/bash
+```
+When entering the container we will execute the following command to install all the dependencies of the project:
+
+```sh
+composer install
+```
+
+Then we will run the following command to build the database structure and seeded some tables with dummy information.
+
+```sh
+php artisan migrate --seed
+```
+
+Finally you can run the unit and integration tests with the following command:
+
+```sh
+php artisan test
+```
+
+#### Test with postman
+
+If everything has been successful you should already have the project running, we recommend using it through postman. I have created a collection in postman with the api requests, the file is called  `--ride-hailing-api/ride-hailing-api.postman_collection.json` you can import it from your postman and start testing.
