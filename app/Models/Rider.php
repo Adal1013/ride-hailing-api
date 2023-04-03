@@ -53,7 +53,8 @@ class Rider extends Model
      */
     public function latestPaymentSource(): HasOne
     {
-        return $this->hasOne(PaymentSource::class, 'rider_id', 'id');
+        return $this->hasOne(PaymentSource::class, 'rider_id', 'id')
+          ->latest();
     }
 
     /**
