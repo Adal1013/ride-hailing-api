@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "8786a0dd-49c4-4c5e-9886-dfe2ce654064",
+		"name": "ride-hailing-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11244955"
+	},
+	"item": [
+		{
+			"name": "Riders",
+			"item": [
+				{
+					"name": "create payment method with generic card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"riderId\": 1,\n    \"type\": \"CARD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/v1/payment-sources",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"v1",
+								"payment-sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create payment method with specific card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"riderId\": 2,\n    \"type\": \"CARD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/v1/payment-sources/with-card",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"v1",
+								"payment-sources",
+								"with-card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create a trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"riderId\": 1,\n    \"originLatitude\": \"6.2497266\",\n    \"originLongitude\": \"-75.5825998\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/v1/trips",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"v1",
+								"trips"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Drivers",
+			"item": [
+				{
+					"name": "finish a trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"driverId\": 3,\n    \"destinationLatitude\": \"6.2374889\",\n    \"destinationLongitude\": \"-75.5950693\",\n    \"installments\": \"4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/v1/trips/finish",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"v1",
+								"trips",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
