@@ -4,12 +4,13 @@ namespace App\Http\Services\PaymentSources;
 
 use App\Http\DataTransferObjects\PaymentSources\PaymentSourceData;
 use App\Models\PaymentSource;
+use Illuminate\Http\JsonResponse;
 
 interface PaymentSourceService
 {
   /**
    * @param PaymentSourceData $paymentSourceData
-   * @return PaymentSource
+   * @return JsonResponse|PaymentSource
    */
-  public function createMethod(PaymentSourceData $paymentSourceData): PaymentSource;
+  public function createMethod(PaymentSourceData $paymentSourceData): JsonResponse|PaymentSource;
 }

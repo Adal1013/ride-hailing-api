@@ -23,8 +23,8 @@ class StartTripData extends Data
     $intRule = 'required|int';
     return [
       'riderId' => $intRule,
-      'originLatitude' => $intRule,
-      'originLongitude' => $intRule,
+      'originLatitude' => 'required|string',
+      'originLongitude' => 'required|string',
     ];
   }
 }

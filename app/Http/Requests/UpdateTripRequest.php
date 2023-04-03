@@ -21,12 +21,11 @@ class UpdateTripRequest extends FormRequest
      */
     public function rules(): array
     {
-      $intRule = 'required|int';
       return [
         'driverId' => 'required|int|exists:drivers,id',
-        'destinationLatitude' => $intRule,
-        'destinationLongitude' => $intRule,
-        'installments' => $intRule,
+        'destinationLatitude' => 'required|string',
+        'destinationLongitude' => 'required|string',
+        'installments' => 'required|int',
       ];
     }
 }

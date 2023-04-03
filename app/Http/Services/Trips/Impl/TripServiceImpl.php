@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Trips\Impl;
 
+use App\Exceptions\WompiException;
 use App\Http\DataTransferObjects\Transactions\TransactionData;
 use App\Http\DataTransferObjects\Trips\EndTripData;
 use App\Http\DataTransferObjects\Trips\StartTripData;
@@ -12,6 +13,7 @@ use App\Http\Services\Transactions\TransactionService;
 use App\Http\Services\Trips\TripService;
 use App\Models\Trip;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use MatanYadaev\EloquentSpatial\Objects\Point;
@@ -41,8 +43,17 @@ class TripServiceImpl implements TripService
   {
     try {
       $rider = $this->riderRepository->getById($tripData->riderId);
+      if (isset($rider->trips)) {
+        $tripStatus = $rider->trips()->latest()->first()->status ?? null;
+        if ($tripStatus === 'on trip') {
+          throw new WompiException('El pasajero ya se encuenta en viaje', 403);
+        }
+      }
       $riderLocation = new Point($tripData->originLatitude, $tripData->originLongitude);
       $driver = $this->driverRepository->getNearestDriverToLocation($riderLocation);
+      if (!isset($driver)) {
+        throw new WompiException('No hay conductores disponibles', 403);
+      }
       DB::beginTransaction();
       $data = [
         'driver_id' => $driver->id,
@@ -56,7 +67,7 @@ class TripServiceImpl implements TripService
       DB::rollBack();
       Log::error('Ha ocurrido un error al iniciar un viaje para el rider: ' . $tripData->riderId);
       Log::error($e->getMessage());
-      abort(500);
+      abort(403, $e->getMessage());
     }
   }
 
@@ -70,6 +81,9 @@ class TripServiceImpl implements TripService
       $finalLocation = new Point($tripData->destinationLatitude, $tripData->destinationLongitude);
       $driver = $this->driverRepository->getDriverDistanceFromLocation($tripData->driverId, $finalLocation);
       $trip = $this->tripRepository->getByDriverId($driver->id);
+      if (!isset($trip)) {
+        throw new WompiException('Este viaje ya fue finalizado', 403);
+      }
       $date = Carbon::now();
       $durationInMin = $date->diffInMinutes($trip->created_at);
       $distanceInKm = $driver->distance_in_meters / 1000;
@@ -106,7 +120,7 @@ class TripServiceImpl implements TripService
       DB::rollBack();
       Log::error('Ha ocurrido un error al finalizar un viaje para el driver: ' . $tripData->driverId);
       Log::error($e->getMessage());
-      abort(500);
+      abort(403, $e->getMessage());
     }
   }
 }

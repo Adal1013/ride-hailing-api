@@ -40,7 +40,7 @@ class PaymentSourceServiceImpl implements PaymentSourceService
       Log::error('Ha ocurrido un error al tratar de crear el metodo de pago para el conductor ' .
         $paymentSourceData->riderId);
       Log::error($e->getMessage());
-      abort(500);
+      abort(422, 'El token de tarjeta ya fue usado');
     }
   }
 }
