@@ -14,6 +14,10 @@ use App\Http\Repositories\Trips\Impl\TripRepositoryImpl;
 use App\Http\Repositories\Trips\TripRepository;
 use App\Http\Services\PaymentSources\Impl\PaymentSourceServiceImpl;
 use App\Http\Services\PaymentSources\PaymentSourceService;
+use App\Http\Services\Transactions\Impl\TransactionServiceImpl;
+use App\Http\Services\Transactions\TransactionService;
+use App\Http\Services\Trips\Impl\TripServiceImpl;
+use App\Http\Services\Trips\TripService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
 
       // Services
       $this->app->bind(PaymentSourceService::class, PaymentSourceServiceImpl::class);
+      $this->app->bind(TripService::class, TripServiceImpl::class);
+      $this->app->bind(TransactionService::class, TransactionServiceImpl::class);
     }
 
     /**
