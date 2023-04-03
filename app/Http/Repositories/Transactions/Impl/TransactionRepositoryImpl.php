@@ -2,13 +2,12 @@
 
 namespace App\Http\Repositories\Transactions\Impl;
 
+use App\Helpers\WompiHelper;
 use App\Http\DataTransferObjects\Transactions\TransactionData;
 use App\Http\Repositories\Transactions\TransactionRepository;
 use App\Models\Transaction;
 use App\Models\Trip;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class TransactionRepositoryImpl implements TransactionRepository
 {
@@ -45,27 +44,16 @@ class TransactionRepositoryImpl implements TransactionRepository
    */
   private function createThirdTransaction(array $requestData, Trip $trip): Transaction|null
   {
-    $response = Http::withToken(config('app_config.wompi_private_key'))
-      ->post(config('app_config.wompi_url') . 'v1/transactions', $requestData);
-    if ($response->successful()) {
-      $responseData = $response->json();
-      $data = [
-        'amount_in_cents' => $responseData['data']['amount_in_cents'] ?? null,
-        'currency' => $responseData['data']['currency'] ?? null,
-        'installments' => $responseData['data']['payment_method']['installments'] ?? null,
-        'reference' => $responseData['data']['reference'] ?? null,
-        'payment_source_id' => $trip->rider->latestPaymentSource->id ?? null,
-        'trip_id' => $trip->id,
-      ];
-      return $this->createTransaction($data);
-    }
-    if ($response->failed() || $response->serverError()) {
-      Log::error('Error creando una transaccion');
-      Log::error($response->json());
-      Log::error($response->failed());
-      Log::error($response->serverError());
-    }
-    return null;
+    $responseData = WompiHelper::requestWithAuth('v1/transactions', $requestData, true);
+    $data = [
+      'amount_in_cents' => $responseData['data']['amount_in_cents'] ?? null,
+      'currency' => $responseData['data']['currency'] ?? null,
+      'installments' => $responseData['data']['payment_method']['installments'] ?? null,
+      'reference' => $responseData['data']['reference'] ?? null,
+      'payment_source_id' => $trip->rider->latestPaymentSource->id ?? null,
+      'trip_id' => $trip->id,
+    ];
+    return $this->createTransaction($data);
   }
 
   /**
