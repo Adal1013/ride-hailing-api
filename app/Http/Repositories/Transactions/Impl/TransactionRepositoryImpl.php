@@ -2,11 +2,11 @@
 
 namespace App\Http\Repositories\Transactions\Impl;
 
-use App\Helpers\TransactionHelper;
 use App\Http\DataTransferObjects\Transactions\TransactionData;
 use App\Http\Repositories\Transactions\TransactionRepository;
 use App\Models\Transaction;
 use App\Models\Trip;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -32,7 +32,7 @@ class TransactionRepositoryImpl implements TransactionRepository
       'currency' => 'COP',
       'customer_email' => $transactionData->trip->rider->email,
       'payment_method' => [ 'installments' => $transactionData->installments],
-      'reference' => TransactionHelper::generateReference(),
+      'reference' => 'REF' . Carbon::now()->timestamp,
       'payment_source_id' => 51748
     ];
     return $this->createThirdTransaction($requestData, $transactionData->trip);
