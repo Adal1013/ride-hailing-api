@@ -23,9 +23,9 @@ class UpdateTripRequest extends FormRequest
     {
       $intRule = 'required|int';
       return [
-        'riderId' => 'required|int|exists:riders,id',
-        'originLatitude' => $intRule,
-        'originLongitude' => $intRule,
+        'driverId' => 'required|int|exists:drivers,id',
+        'destinationLatitude' => $intRule,
+        'destinationLongitude' => $intRule,
         'installments' => $intRule,
       ];
     }

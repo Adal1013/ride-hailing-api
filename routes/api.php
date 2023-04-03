@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PaymentSourceController;
+use App\Http\Controllers\TripController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function () {
   Route::group(['prefix' => 'payment-sources'], function () {
     Route::post('', [PaymentSourceController::class, 'store']);
+  });
+  Route::group(['prefix' => 'trips'], function () {
+    Route::post('', [TripController::class, 'store']);
+    Route::post('finish', [TripController::class, 'finishTrip']);
   });
 });
