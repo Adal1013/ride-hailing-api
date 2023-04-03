@@ -3,11 +3,13 @@
 namespace Tests\Unit\Repositories;
 
 use App\Models\Rider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Http\Repositories\Riders\RiderRepository;
 
 class RiderRepositoryTest extends TestCase
 {
+  use RefreshDatabase;
 
   protected RiderRepository $riderRepository;
 
@@ -21,7 +23,6 @@ class RiderRepositoryTest extends TestCase
   }
 
   /**
-   * A basic unit test example.
    */
   public function test_get_by_id(): void
   {

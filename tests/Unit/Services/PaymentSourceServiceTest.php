@@ -6,10 +6,13 @@ use App\Http\DataTransferObjects\PaymentSources\PaymentSourceData;
 use App\Http\Services\PaymentSources\PaymentSourceService;
 use App\Models\PaymentSource;
 use App\Models\Rider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class PaymentSourceServiceTest extends TestCase
 {
+  use RefreshDatabase;
+
   protected PaymentSourceService $paymentSourceService;
 
   /**

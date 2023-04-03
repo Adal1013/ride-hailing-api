@@ -4,10 +4,13 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Rider;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class PaymentSourceControllerTest extends TestCase
 {
+  use RefreshDatabase;
+
   public function setUp(): void
   {
     parent::setUp();

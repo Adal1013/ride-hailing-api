@@ -7,10 +7,13 @@ use App\Http\Repositories\Transactions\TransactionRepository;
 use App\Models\PaymentSource;
 use App\Models\Transaction;
 use App\Models\Trip;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class TransactionRepositoryTest extends TestCase
 {
+  use RefreshDatabase;
+
   protected TransactionRepository $transactionRepository;
 
   /**
