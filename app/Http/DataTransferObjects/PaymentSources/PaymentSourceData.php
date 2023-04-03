@@ -10,7 +10,7 @@ class PaymentSourceData extends Data
    * @param int $riderId
    * @param string $type
    */
-  public function __construct(public int $riderId, public string $type)
+  public function __construct(public int $riderId, public string $type, public ?bool $specificCard)
   {
   }
 
@@ -22,6 +22,7 @@ class PaymentSourceData extends Data
     return [
       'riderId' => 'required|int',
       'type' => 'required|string',
+      'specificCard' => 'nullable|boolean',
     ];
   }
 }
