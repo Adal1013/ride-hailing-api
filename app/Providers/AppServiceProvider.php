@@ -8,6 +8,8 @@ use App\Http\Repositories\PaymentSources\Impl\PaymentSourceRepositoryImpl;
 use App\Http\Repositories\PaymentSources\PaymentSourceRepository;
 use App\Http\Repositories\Riders\Impl\RiderRepositoryImpl;
 use App\Http\Repositories\Riders\RiderRepository;
+use App\Http\Repositories\Transactions\Impl\TransactionRepositoryImpl;
+use App\Http\Repositories\Transactions\TransactionRepository;
 use App\Http\Repositories\Trips\Impl\TripRepositoryImpl;
 use App\Http\Repositories\Trips\TripRepository;
 use App\Http\Services\PaymentSources\Impl\PaymentSourceServiceImpl;
@@ -22,9 +24,10 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
       // Repositories
-      $this->app->bind(RiderRepository::class, RiderRepositoryImpl::class);
-      $this->app->bind(PaymentSourceRepository::class, PaymentSourceRepositoryImpl::class);
       $this->app->bind(DriverRepository::class, DriverRepositoryImpl::class);
+      $this->app->bind(PaymentSourceRepository::class, PaymentSourceRepositoryImpl::class);
+      $this->app->bind(RiderRepository::class, RiderRepositoryImpl::class);
+      $this->app->bind(TransactionRepository::class, TransactionRepositoryImpl::class);
       $this->app->bind(TripRepository::class, TripRepositoryImpl::class);
 
       // Services
