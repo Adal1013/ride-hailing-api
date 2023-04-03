@@ -8,13 +8,15 @@ class EndTripData extends Data
 {
   /**
    * @param int $driverId
-   * @param string $destinationLatitude
-   * @param string $destinationLongitude
+   * @param int $destinationLatitude
+   * @param int $destinationLongitude
+   * @param int $installments
    */
   public function __construct(
       public int $driverId,
-      public string $destinationLatitude,
-      public string $destinationLongitude
+      public int $destinationLatitude,
+      public int $destinationLongitude,
+      public int $installments
   )
   {
   }
@@ -29,6 +31,7 @@ class EndTripData extends Data
       'driverId' => $intRule,
       'destinationLatitude' => $intRule,
       'destinationLongitude' => $intRule,
+      'installments' => $intRule
     ];
   }
 }
