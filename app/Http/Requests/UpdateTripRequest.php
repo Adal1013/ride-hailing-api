@@ -11,7 +11,7 @@ class UpdateTripRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,12 @@ class UpdateTripRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+      $intRule = 'required|int';
+      return [
+        'riderId' => 'required|int|exists:riders,id',
+        'originLatitude' => $intRule,
+        'originLongitude' => $intRule,
+        'installments' => $intRule,
+      ];
     }
 }
