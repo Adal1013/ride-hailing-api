@@ -7,8 +7,8 @@ use App\Models\Rider;
 interface RiderRepository
 {
   /**
-   * @param $riderId
+   * @param int $riderId
    * @return Rider|null
    */
-  public function getById($riderId): Rider|null;
+  public function getById(int $riderId): Rider|null;
 }

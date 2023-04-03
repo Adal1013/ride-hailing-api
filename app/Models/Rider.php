@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Rider extends Model
 {
@@ -45,6 +46,14 @@ class Rider extends Model
     public function getFullNameAttribute(): string
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function latestPaymentSource(): HasOne
+    {
+        return $this->hasOne(PaymentSource::class, 'rider_id', 'id');
     }
 
     /**

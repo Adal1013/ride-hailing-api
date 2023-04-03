@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
-            $table->decimal('distance', 10, 2);
-            $table->decimal('duration', 10, 2);
+            $table->decimal('distance', 10, 2)->nullable();
+            $table->decimal('duration', 10, 2)->nullable();
             $table->unsignedBigInteger('driver_id');
             $table->point('destination_location')->nullable();
             $table->unsignedBigInteger('rider_id');
-            $table->point('origin_location')->nullable();
-            $table->enum('status', ['on trip', 'canceled', 'finished']);
-            $table->decimal('total_cost', 10, 2);
+            $table->point('origin_location');
+            $table->enum('status', ['on trip', 'canceled', 'finished'])->default('on trip');
+            $table->decimal('total_cost', 10, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('driver_id')->references('id')->on('drivers');

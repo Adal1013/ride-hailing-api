@@ -49,6 +49,7 @@ class PaymentSourceRepositoryImpl implements PaymentSourceRepository
 
   /**
    * @param PaymentSourceData $paymentSourceData
+   * @param Rider $rider
    * @return PaymentSource|null
    */
   public function create(PaymentSourceData $paymentSourceData, Rider $rider): PaymentSource|null
@@ -64,7 +65,8 @@ class PaymentSourceRepositoryImpl implements PaymentSourceRepository
   }
 
   /**
-   * @param array $data
+   * @param array $requestData
+   * @param int $riderId
    * @return PaymentSource|null
    */
   private function createThirdPaymentSource(array $requestData, int $riderId): PaymentSource|null
