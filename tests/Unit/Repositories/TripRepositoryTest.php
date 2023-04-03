@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Repositories;
 
+use App\Enumerations\TripStatusEnum;
 use App\Http\Repositories\Trips\TripRepository;
 use App\Models\Driver;
 use App\Models\Rider;
@@ -40,7 +41,7 @@ class TripRepositoryTest extends TestCase
   {
     $trip = Trip::factory()->create();
     $driver = Driver::factory()->create();
-    $trip->status = 'on trip';
+    $trip->status = TripStatusEnum::ON_TRIP->value;
     $trip->driver_id = $driver->id;
     $trip->save();
     $foundTrip = $this->tripRepository->getByDriverId($trip->driver_id);
@@ -66,7 +67,7 @@ class TripRepositoryTest extends TestCase
       'distance' => 20,
       'duration' => 15,
       'destination_location' => new Point(5, 5),
-      'status' => 'finished',
+      'status' => TripStatusEnum::FINISHED->value,
       'total_cost' => 75000
     ];
     $trip = $this->tripRepository->update($data);

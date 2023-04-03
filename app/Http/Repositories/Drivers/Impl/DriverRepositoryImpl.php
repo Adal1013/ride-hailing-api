@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories\Drivers\Impl;
 
+use App\Enumerations\TripStatusEnum;
 use App\Http\Repositories\Drivers\DriverRepository;
 use App\Models\Driver;
 use MatanYadaev\EloquentSpatial\Objects\Point;
@@ -26,7 +27,7 @@ class DriverRepositoryImpl implements DriverRepository
     return Driver::query()
       ->orderByDistance('current_location', $location, 'desc')
       ->whereDoesntHave('trips', function ($query) {
-          $query->where('status', 'on trip');
+          $query->where('status', TripStatusEnum::ON_TRIP->value);
       })
       ->first();
   }

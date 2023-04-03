@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Trips\Impl;
 
+use App\Enumerations\TripStatusEnum;
 use App\Exceptions\WompiException;
 use App\Http\DataTransferObjects\Transactions\TransactionData;
 use App\Http\DataTransferObjects\Trips\EndTripData;
@@ -45,7 +46,7 @@ class TripServiceImpl implements TripService
       $rider = $this->riderRepository->getById($tripData->riderId);
       if (isset($rider->trips)) {
         $tripStatus = $rider->trips()->latest()->first()->status ?? null;
-        if ($tripStatus === 'on trip') {
+        if ($tripStatus === TripStatusEnum::ON_TRIP->value) {
           throw new WompiException('El pasajero ya se encuenta en viaje', 403);
         }
       }
@@ -93,7 +94,7 @@ class TripServiceImpl implements TripService
         'distance' => $distanceInKm,
         'duration' => $durationInMin,
         'destination_location' => $finalLocation,
-        'status' => 'finished',
+        'status' => TripStatusEnum::FINISHED->value,
         'total_cost' => 3500 + ($distanceInKm * 1000) + ($durationInMin * 200)
       ];
       $trip = $this->tripRepository->update($data);

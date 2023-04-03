@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Enumerations\TripStatusEnum;
 use App\Models\Driver;
 use App\Models\PaymentSource;
 use App\Models\Rider;
@@ -37,7 +38,7 @@ class TripControllerTest extends TestCase
     $modelData = [
       'driver_id' => $driver->id,
       'rider_id' => $rider->id,
-      'status' => 'on trip'
+      'status' => TripStatusEnum::ON_TRIP->value
     ];
     $response->assertStatus(201);
     $response->assertJsonFragment($modelData);

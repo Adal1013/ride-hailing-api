@@ -1,5 +1,6 @@
 <?php
 
+use App\Enumerations\TripStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->point('destination_location')->nullable();
             $table->unsignedBigInteger('rider_id');
             $table->point('origin_location');
-            $table->enum('status', ['on trip', 'canceled', 'finished'])->default('on trip');
+            $table->enum('status', TripStatusEnum::getValues())->default(TripStatusEnum::ON_TRIP->value);
             $table->decimal('total_cost', 10, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();

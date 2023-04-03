@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories\Trips\Impl;
 
+use App\Enumerations\TripStatusEnum;
 use App\Http\Repositories\Trips\TripRepository;
 use App\Models\Trip;
 
@@ -23,7 +24,7 @@ class TripRepositoryImpl implements TripRepository
   public function getByDriverId(int $driverId): Trip|null
   {
     return Trip::where('driver_id', $driverId)
-      ->where('status', 'on trip')
+      ->where('status', TripStatusEnum::ON_TRIP->value)
       ->latest()
       ->first();
   }

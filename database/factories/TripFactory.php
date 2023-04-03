@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enumerations\TripStatusEnum;
 use App\Models\Driver;
 use App\Models\Rider;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,7 +27,7 @@ class TripFactory extends Factory
             'destination_location' => new Point(fake()->latitude, fake()->longitude),
             'rider_id' => Rider::factory()->create()->id,
             'origin_location' => new Point(fake()->latitude, fake()->longitude),
-            'status' => fake()->randomElement(['on trip', 'canceled', 'finished']),
+            'status' => fake()->randomElement(TripStatusEnum::getValues()),
             'total_cost' => fake()->randomFloat(2, 10000, 99999)
         ];
     }
