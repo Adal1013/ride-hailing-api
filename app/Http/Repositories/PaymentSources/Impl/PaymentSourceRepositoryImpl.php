@@ -42,11 +42,11 @@ class PaymentSourceRepositoryImpl implements PaymentSourceRepository
    */
   public function create(PaymentSourceData $paymentSourceData, Rider $rider): PaymentSource|null
   {
+    $tokenCard = $paymentSourceData->specificCard ? $this->getTestToken() : $this->generateFakeToken($rider->full_name);
     $requestData = [
       'customer_email' => $rider->email,
       'type' => $paymentSourceData->type,
-      //'token' => $this->getTestToken(),
-      'token' => $this->generateFakeToken($rider->full_name),
+      'token' => $tokenCard,
       'acceptance_token' => $this->getAcceptanceToken()
     ];
     return $this->createThirdPaymentSource($requestData, $rider->id);
