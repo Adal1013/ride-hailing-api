@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Repositories\Drivers\Impl\DriverRepositoryImpl;
+use App\Http\Repositories\Drivers\DriverRepository;
 use App\Http\Repositories\PaymentSources\Impl\PaymentSourceRepositoryImpl;
 use App\Http\Repositories\PaymentSources\PaymentSourceRepository;
 use App\Http\Repositories\Riders\Impl\RiderRepositoryImpl;
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
       // Repositories
       $this->app->bind(RiderRepository::class, RiderRepositoryImpl::class);
       $this->app->bind(PaymentSourceRepository::class, PaymentSourceRepositoryImpl::class);
+      $this->app->bind(DriverRepository::class, DriverRepositoryImpl::class);
 
       // Services
       $this->app->bind(PaymentSourceService::class, PaymentSourceServiceImpl::class);
