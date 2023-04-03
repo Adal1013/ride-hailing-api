@@ -13,8 +13,7 @@ class TransactionHelper
    */
   public static function generateReference(): string
   {
-    $lastReference = Transaction::max('reference');
-    $nextReference = ($lastReference + 1) ?? 1;
-    return self::PREFIX . str_pad($nextReference, 19 - strlen(self::PREFIX), '0', STR_PAD_LEFT);
+    $lastReference = Transaction::orderBy('id', 'desc')->first()->id ?? 1;
+    return self::PREFIX . str_pad(($lastReference + 1), 10 - strlen(self::PREFIX), '0', STR_PAD_LEFT);
   }
 }
