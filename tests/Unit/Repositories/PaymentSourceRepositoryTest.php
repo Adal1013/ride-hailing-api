@@ -18,7 +18,7 @@ class PaymentSourceRepositoryTest extends TestCase
   public function setUp(): void
   {
       parent::setUp();
-      $this->paymentSourceRepository = app(PaymentSourceRepository::class);;
+      $this->paymentSourceRepository = app(PaymentSourceRepository::class);
   }
 
   /**

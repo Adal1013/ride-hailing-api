@@ -17,7 +17,7 @@ class RiderRepositoryTest extends TestCase
   public function setUp(): void
   {
       parent::setUp();
-      $this->riderRepository = app(RiderRepository::class);;
+      $this->riderRepository = app(RiderRepository::class);
   }
 
   /**

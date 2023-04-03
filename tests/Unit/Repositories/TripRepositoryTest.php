@@ -22,7 +22,7 @@ class TripRepositoryTest extends TestCase
   public function setUp(): void
   {
     parent::setUp();
-    $this->tripRepository = app(TripRepository::class);;
+    $this->tripRepository = app(TripRepository::class);
   }
 
   /**

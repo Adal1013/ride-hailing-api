@@ -20,7 +20,7 @@ class DriverRepositoryTest extends TestCase
   public function setUp(): void
   {
       parent::setUp();
-      $this->driverRepository = app(DriverRepository::class);;
+      $this->driverRepository = app(DriverRepository::class);
   }
 
   /**
